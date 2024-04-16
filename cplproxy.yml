@@ -1,0 +1,61 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: cplproxy
+  labels:
+    app: cplproxy
+spec:
+  selector:
+    app: cplproxy
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: LoadBalancer
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: cplproxyweb
+  labels:
+    app: cplproxyweb
+spec:
+  selector:
+    app: cplproxy
+  ports:
+  - protocol: TCP
+    port: 8081
+    targetPort: 8081
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cplproxy
+  labels:
+    app: cplproxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cplproxy
+  template:
+    metadata:
+      labels:
+        app: cplproxy
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "cplproxy"
+        dapr.io/enable-api-logging: "true"
+    spec:
+      containers:
+      - name: cplproxy
+        image: kylerdocker/cplproxy:2.1
+        imagePullPolicy: Always
+        ports:
+        - name: proxy-port
+          containerPort: 8080
+        - name: web-port
+          containerPort: 8081

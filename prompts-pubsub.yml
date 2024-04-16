@@ -1,0 +1,14 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: promptpubsub
+spec:
+  type: pubsub.redis
+  version: v1
+  metadata:
+  - name: redisHost
+    value: <Your_Redis_Host>:6380
+  - name: redisPassword
+    value: <Your_Redis_Password>
+  - name: enableTLS
+    value: true
