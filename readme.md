@@ -3,7 +3,8 @@
 TBD
 
 ## Architecture
-![](https://github.com/kylercai/ghcp-proxy/blob/master/architecture.png)
+![Architecture](https://github.com/kylercai/ghcp-proxy/blob/main/architecture.png)
+
 
 ## Prerequisites
 TBD
