@@ -31,7 +31,7 @@ The typical usage is to mitigate the compliance conerns on that GitHub Copilot m
 - Re-build your container image if you update the logic and configuration. In the **Deployment** definition of `cplproxy.yml`, point your container image to the new image
 
 ## How to use
-1. **Install Dapr in Kubernetes cluster**
+### 1. Install Dapr in Kubernetes cluster
 
 ```
 dapr init -k
@@ -46,7 +46,7 @@ dapr-sentry            dapr-system  True     Running  1         1.13.2   1d   20
 dapr-operator          dapr-system  True     Running  1         1.13.2   1d   2024-04-15 15:27.05
 ``` 
 
-2. **Install Dapr component for Pub/Sub**
+### 2. Install Dapr component for Pub/Sub
 
 ```
 λ kubectl apply -f prompts-pubsub.yml
@@ -57,7 +57,7 @@ Benefit from Dapr, you can have other choices on the brokers without code changi
 For the up-to-date list of supported Pub/Sub brokers, please visit Dapr links: https://docs.dapr.io/reference/components-reference/supported-pubsub/. <br><br>
 In this sample we use Azure Redis.<br>
 
-3. **Start the proxy in Kubernetes cluster**  
+### 3. Start the proxy in Kubernetes cluster  
 
 ```
 kubectl apply -f cplproxy.yml
@@ -93,11 +93,11 @@ One thing to clarify, in the deployment definition you may notice that we set th
 NAME                        READY   STATUS    RESTARTS   AGE   IP          NODE                                NOMINATED NODE   READINESS GATES
 cplproxy-66f8f985d5-ccvhl   2/2     Running   0          16h   10.0.4.28   aks-agentpool-38020763-vmss000000   <none>           <none>
 ```
-This is expected because Dapr automatically injects a side-car containers into the pod of the cplproxy container.<br>
+This is expected because Dapr automatically injects a side-car container into the pod of the cplproxy container.<br>
 You can use command `kubectl describe pod xxx` to view the detail.<br>
 
 
-4. **Configure the proxy setting in your IDE**
+### 4. Configure the proxy setting in your IDE
 
 You can download the certification in the **"certs"** folder corresponding to your operating system of IDE, and install your downloaded certification in your OS.<br>
 - For VS Code users:
@@ -107,18 +107,18 @@ You can download the certification in the **"certs"** folder corresponding to yo
     - Enable the option 'accept non-trusted certificates automatically' in `Settings -> Tools -> Server Certificates`.
     - Fill in the 'host name', 'port number', choose 'Proxy authentication', and enter your username in 'Login'. No password is required.
 
-5. **Review the processing in the proxy web portal**
+### 5. Review the processing in the proxy web portal
 
 In the web portal you will see the flows detail and how the proxy do the processing
 ![UI](./imgs/proxyUI.png)
 <br>
 
-6. **Review the published processing detail**
+### 6. Review the published processing detail
 
 Use the console of your pub/sub broker to view the messages in the "prompts" topic
 <br>
 
-7. **Further actions on the published processing detail**
+### 7. Further actions on the published processing detail
 
 <br>
 
