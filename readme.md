@@ -28,10 +28,10 @@ The typical usage is to mitigate the compliance conerns on that GitHub Copilot m
 ## Prerequisites
 - Dapr (version 1.13.2 or above) is installed in your Kubernetes cluster
 - Redis or other supported brokers with Pub/Sub (https://docs.dapr.io/reference/components-reference/supported-pubsub/)
-- Re-build your container image if you update the logic and configuration. In the "Deployment" definition of "cplproxy.yml", point your container image to the new image
+- Re-build your container image if you update the logic and configuration. In the **Deployment** definition of `cplproxy.yml`, point your container image to the new image
 
 ## How to use
-1. Install Dapr in Kubernetes cluster<br>
+1. **Install Dapr in Kubernetes cluster**
 ```
 dapr init -k
 ```
@@ -45,14 +45,14 @@ dapr-sentry            dapr-system  True     Running  1         1.13.2   1d   20
 dapr-operator          dapr-system  True     Running  1         1.13.2   1d   2024-04-15 15:27.05
 ``` 
 
-2. Install Dapr component for Pub/Sub  
+2. **Install Dapr component for Pub/Sub**
 ```
 λ kubectl apply -f prompts-pubsub.yml
 component.dapr.io/promptpubsub configured
 ```
 This tells the Dapr use your broker to publish the flow processing events. Benefit from Dapr, you can many choices for your favorite brokers, for example Kafka, RabbitMQ, RocketMQ, Azure Event Hubs, etc. For the up-to-date list of supported Pub/Sub brokers, please visit Dapr links: https://docs.dapr.io/reference/components-reference/supported-pubsub/.
 
-3. Start the proxy in Kubernetes cluster  
+3. **Start the proxy in Kubernetes cluster**  
 ```
 kubectl apply -f cplproxy.yml
 ```
@@ -65,17 +65,17 @@ cplproxy   1/1     1            1           16h   cplproxy     kylerdocker/cplpr
 
 λ kubectl get services cplproxy cplproxyweb -o wide
 NAME          TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)          AGE   SELECTOR
-cplproxy      LoadBalancer   20.0.163.163   143.64.163.184   8080:32651/TCP   16h   app=cplproxy
-cplproxyweb   LoadBalancer   20.0.70.142    143.64.163.189   8081:32701/TCP   16h   app=cplproxy
+cplproxy      LoadBalancer   20.0.163.163   143.**.**.184   8080:32651/TCP   16h   app=cplproxy
+cplproxyweb   LoadBalancer   20.0.70.142    143.**.**.189   8081:32701/TCP   16h   app=cplproxy
 
 λ kubectl get pods -l app=cplproxy -o wide
 NAME                        READY   STATUS    RESTARTS   AGE   IP          NODE                                NOMINATED NODE   READINESS GATES
 cplproxy-66f8f985d5-ccvhl   2/2     Running   0          16h   10.0.4.28   aks-agentpool-38020763-vmss000000   <none>           <none>
 ```
 
-There are two services:<br>
-    - cplproxy: the proxy service listening on port 8080. Sits in the middle of clients and the GitHub Copilot service to intercept and process the request.<br>
-    - cplproxyweb: the web console of the cplproxy service listening on port 8081.<br>
+There are two services:
+- cplproxy: the proxy service listening on port 8080. Sits in the middle of clients and the GitHub Copilot service to intercept and process the request.
+- cplproxyweb: the web console of the cplproxy service listening on port 8081.
 
 Visit the cplproxyweb service and you will see the web console of the cplproxy like below:<br>
 ![UI](./imgs/webConsole.png)
@@ -91,28 +91,28 @@ This is expected because Dapr automatically injects a side-car containers into t
 You can use command "kubectl describe pod xxx" to view the detail.<br>
 
 
-4. Configure the proxy setting in your IDE
+4. **Configure the proxy setting in your IDE**
 You set the proxy using the cplproxy service address.<br>
 When you configure the proxy setting in IDE, make sure using URL in the form of "http://<your_id>@<your_proxy_domain_name>:8080". <your_id> should be list in the "allowed_users.txt", and <your_proxy_domain_name> should be a resolvable domain name pointing to the cplproxy service IP address. For example: http://kacai@mitmproxy.kylerc.it:8080 (_I add a recode in local host file point "mitmproxy.kylerc.it" to the cplproxy service IP run in my Kubernetes cluster_).<br>
 
 You can download the certification in the **"certs"** folder corresponding to your operating system of IDE, and install your downloaded certification in your OS.<br>
 - For VS Code users:
     - Install the `win-ca` extension to make the customized proxy certificate work.
-    - To collect data, the proxy server address should be: `http://<your_id>@<your_proxy_domain_name>:8080`, no password is required. <your_id> should be list in the "allowed_users.txt", and <your_proxy_domain_name> should be a resolvable domain name pointing to the cplproxy service IP address. For example: http://kacai@mitmproxy.kylerc.it:8080 (_I add a recode in local host file point "mitmproxy.kylerc.it" to the cplproxy service IP run in my Kubernetes cluster_).
+    - To collect data, the proxy server address should be: **http://<your_id>@<your_proxy_domain_name>:8080**, no password is required. <your_id> should be list in the "allowed_users.txt", and <your_proxy_domain_name> should be a resolvable domain name pointing to the cplproxy service IP address. For example: http://kacai@mitmproxy.kylerc.it:8080 (_I add a recode in local host file point "mitmproxy.kylerc.it" to the cplproxy service IP run in my Kubernetes cluster_).
 - For JetBrains users:
     - Enable the option 'accept non-trusted certificates automatically' in `Settings -> Tools -> Server Certificates`.
     - Fill in the 'host name', 'port number', choose 'Proxy authentication', and enter your username in 'Login'. No password is required.
 
-5. Review the processing in the proxy web portal
+5. **Review the processing in the proxy web portal**
 In the web portal you will see the flows detail and how the proxy do the processing
 ![UI](./imgs/proxyUI.png)
 <br>
 
-6. Review the published processing detail 
+6. **Review the published processing detail**
 Use the console of your pub/sub broker to view the messages in the "prompts" topic
 <br>
 
-7. Further actions on the published processing detail
+7. **Further actions on the published processing detail**
 <br>
 
 ## Known Issues
