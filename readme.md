@@ -32,6 +32,7 @@ The typical usage is to mitigate the compliance conerns on that GitHub Copilot m
 
 ## How to use
 1. **Install Dapr in Kubernetes cluster**
+
 ```
 dapr init -k
 ```
@@ -46,6 +47,7 @@ dapr-operator          dapr-system  True     Running  1         1.13.2   1d   20
 ``` 
 
 2. **Install Dapr component for Pub/Sub**
+
 ```
 λ kubectl apply -f prompts-pubsub.yml
 component.dapr.io/promptpubsub configured
@@ -56,6 +58,7 @@ For the up-to-date list of supported Pub/Sub brokers, please visit Dapr links: h
 In this sample we use Azure Redis.<br>
 
 3. **Start the proxy in Kubernetes cluster**  
+
 ```
 kubectl apply -f cplproxy.yml
 ```
@@ -95,6 +98,7 @@ You can use command `kubectl describe pod xxx` to view the detail.<br>
 
 
 4. **Configure the proxy setting in your IDE**
+
 You can download the certification in the **"certs"** folder corresponding to your operating system of IDE, and install your downloaded certification in your OS.<br>
 - For VS Code users:
     - Install the `win-ca` extension to make the customized proxy certificate work.
@@ -104,15 +108,18 @@ You can download the certification in the **"certs"** folder corresponding to yo
     - Fill in the 'host name', 'port number', choose 'Proxy authentication', and enter your username in 'Login'. No password is required.
 
 5. **Review the processing in the proxy web portal**
+
 In the web portal you will see the flows detail and how the proxy do the processing
 ![UI](./imgs/proxyUI.png)
 <br>
 
 6. **Review the published processing detail**
+
 Use the console of your pub/sub broker to view the messages in the "prompts" topic
 <br>
 
 7. **Further actions on the published processing detail**
+
 <br>
 
 ## Known Issues
