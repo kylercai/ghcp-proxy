@@ -50,9 +50,10 @@ dapr-operator          dapr-system  True     Running  1         1.13.2   1d   20
 λ kubectl apply -f prompts-pubsub.yml
 component.dapr.io/promptpubsub configured
 ```
-This tells the Dapr to use your broker to publish the flow processing events.<br>
-Benefit from Dapr, you can have other choices on the brokers without code changing. You only need to update the component definition file pointing to new brokers.<br>
-For the up-to-date list of supported Pub/Sub brokers, please visit Dapr links: https://docs.dapr.io/reference/components-reference/supported-pubsub/. In this sample we use Azure Redis.
+This tells the Dapr to use your broker to publish the flow processing events.<br><br>
+Benefit from Dapr, you can have other choices on the brokers without code changing. You only need to update the component definition file pointing to new brokers.<br><br>
+For the up-to-date list of supported Pub/Sub brokers, please visit Dapr links: https://docs.dapr.io/reference/components-reference/supported-pubsub/. <br><br>
+In this sample we use Azure Redis.<br>
 
 3. **Start the proxy in Kubernetes cluster**  
 ```
