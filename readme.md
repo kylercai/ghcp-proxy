@@ -59,7 +59,7 @@ In this sample we use Azure Redis.<br>
 ```
 kubectl apply -f cplproxy.yml
 ```
-This install the deployments and services to run the proxy in Kubernetes cluster.<br>
+This installs the deployments and services to run the proxy in Kubernetes cluster.<br>
 After the installation, check the proxy services status:
 ```
 λ kubectl get deployments -l app=cplproxy -o wide
@@ -84,24 +84,21 @@ Visit the cplproxyweb service and you will see the web console of the cplproxy l
 ![UI](./imgs/webConsole.png)
 <br>
 
-One thing to clarify, in the deployment definition you may notice that we set the container replica as 1, but you should see 2 containers when you run "kubectl get pods" like below:
+One thing to clarify, in the deployment definition you may notice that we set the container replica as 1, but you should see 2 containers when you run `kubectl get pods` like below:
 ```
 λ kubectl get pods -l app=cplproxy -o wide
 NAME                        READY   STATUS    RESTARTS   AGE   IP          NODE                                NOMINATED NODE   READINESS GATES
 cplproxy-66f8f985d5-ccvhl   2/2     Running   0          16h   10.0.4.28   aks-agentpool-38020763-vmss000000   <none>           <none>
 ```
 This is expected because Dapr automatically injects a side-car containers into the pod of the cplproxy container.<br>
-You can use command "kubectl describe pod xxx" to view the detail.<br>
+You can use command `kubectl describe pod xxx` to view the detail.<br>
 
 
 4. **Configure the proxy setting in your IDE**
-You set the proxy using the cplproxy service address.<br>
-When you configure the proxy setting in IDE, make sure using URL in the form of "http://<your_id>@<your_proxy_domain_name>:8080". <your_id> should be list in the "allowed_users.txt", and <your_proxy_domain_name> should be a resolvable domain name pointing to the cplproxy service IP address. For example: http://kacai@mitmproxy.kylerc.it:8080 (_I add a recode in local host file point "mitmproxy.kylerc.it" to the cplproxy service IP run in my Kubernetes cluster_).<br>
-
 You can download the certification in the **"certs"** folder corresponding to your operating system of IDE, and install your downloaded certification in your OS.<br>
 - For VS Code users:
     - Install the `win-ca` extension to make the customized proxy certificate work.
-    - To collect data, the proxy server address should be: **http://<your_id>@<your_proxy_domain_name>:8080**, no password is required. <your_id> should be list in the "allowed_users.txt", and <your_proxy_domain_name> should be a resolvable domain name pointing to the cplproxy service IP address. For example: http://kacai@mitmproxy.kylerc.it:8080 (_I add a recode in local host file point "mitmproxy.kylerc.it" to the cplproxy service IP run in my Kubernetes cluster_).
+    - To collect data, the proxy server address should be: **"http://<your_id>@<your_proxy_domain_name>:8080"**, no password is required. **<your_id>** should be list in the "allowed_users.txt", and **<your_proxy_domain_name>** should be a resolvable domain name pointing to the cplproxy service IP address.
 - For JetBrains users:
     - Enable the option 'accept non-trusted certificates automatically' in `Settings -> Tools -> Server Certificates`.
     - Fill in the 'host name', 'port number', choose 'Proxy authentication', and enter your username in 'Login'. No password is required.
