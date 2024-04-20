@@ -48,6 +48,8 @@ dapr-operator          dapr-system  True     Running  1         1.13.2   1d   20
 
 ### 2. Install Dapr component for Pub/Sub
 
+In the `prompts-pubsub.yml`, replace the <Your_Host> and <Your_Password> with your Redis service endpoint and password. If you plan to use other brokers, please visit https://docs.dapr.io/reference/components-reference/supported-pubsub/ to use the component definition according to your broker.
+
 ```
 λ kubectl apply -f prompts-pubsub.yml
 component.dapr.io/promptpubsub configured
