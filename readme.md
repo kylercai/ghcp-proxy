@@ -1,5 +1,5 @@
 # Local Proxy for GitHub Copilot
-A sample to show how to build customized proxy solution on the top of MITMProxy (Man-In-The-Middle) with your addon logic.<br><br>
+A sample to show how to build customized proxy solution on the top of MITMProxy (Man-In-The-Middle) with your addon logic. This sample runs as container on Kubernetes clusters with Dapr enabled.<br><br>
 The typical usage is to mitigate the compliance conerns on that GitHub Copilot may send confidential information to outer of the enterprise. Run the proxy sitting in the middle of your clients and the GitHub Copilot service to intercept requests, checking the prompt against the blocking list, and denies those requests containing improper prompt contents.<br>
 
 ## Architecture
